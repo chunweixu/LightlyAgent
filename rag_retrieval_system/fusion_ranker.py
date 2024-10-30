@@ -2,6 +2,8 @@ from typing import List
 from utils import logger
 
 def fusion_ranker(es_results: List[str], faiss_results: List[int], top_k: int = 5) -> List[str]:
+    if not es_results: return faiss_results[:top_k]
+    if not faiss_results: return es_results[:top_k]
     rank_scores = {}
     # Assign scores based on rank positions from Elasticsearch and Faiss results
     for i, node_id in enumerate(es_results):

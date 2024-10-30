@@ -2,15 +2,13 @@ from typing import List
 from data_structs import Node
 from utils import logger
 
-def map_and_deduplicate_results(retrieved_ids: List[str], nodes: List[Node]) -> List[Node]:
-    id_to_node = {str(node.id): node for node in nodes}
-    unique_nodes = []
-    seen_ids = set()
+def map_and_deduplicate_results(retrieved: List[str], structure_index: dict) -> List[str]:
+    unique_node_ids = []
+    table = structure_index.table
 
-    for node_id in retrieved_ids:
-        if node_id in id_to_node and node_id not in seen_ids:
-            unique_nodes.append(id_to_node[node_id])
-            seen_ids.add(node_id)
+    for node_id in retrieved:
+        if node_id in table:
+            unique_node_ids.extend(table[node_id])
 
-    logger.info(f"Mapped and deduplicated {len(unique_nodes)} nodes from retrieved results")
-    return unique_nodes
+    logger.info(f"Mapped and deduplicated {len(unique_node_ids)} node IDs from retrieved results")
+    return unique_node_ids

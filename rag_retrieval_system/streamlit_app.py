@@ -26,7 +26,7 @@ def main():
     st.header("Knowledge Base Generation")
     if st.button("Generate Knowledge Base"):
         if not document_path:
-            st.error(f"Document path cannot be empty.")
+            st.error("Document path cannot be empty.")
         else:
             st.info("Loading documents and creating nodes...")
             try:
